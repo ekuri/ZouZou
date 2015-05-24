@@ -22,12 +22,19 @@ class Relation(models.Model):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, primary_key=True)
+    nickname = models.CharField(max_length=64, blank=True, null=True)
     qq = models.CharField(max_length=16, blank=True, null=True)
     phone = models.CharField(max_length=16, blank=True, null=True)
     email = models.CharField(max_length=64, blank=True, null=True)
+    avatar = models.ImageField(upload_to='avatar', null=True, blank=True)
+    remark = models.CharField(max_length=256, blank=True, null=True)
 
     def __unicode__(self):
         return self.user.username + '\'s information'
+
+    class Meta:
+        verbose_name = 'Comment'
+        verbose_name_plural = 'Comments'
 
 def createUserProfile(sender, instance, created, **kwargs):
     if created:
