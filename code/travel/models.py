@@ -18,6 +18,25 @@ class Travel(models.Model):
     def __unicode__(self):
         return self.user.username + '\'s travel'
 
+    def addItems(self, travelItem):
+        if not self.finish:
+            if self.startItem is None:
+                self.startItem = travelItem
+                self.nowItem = travelItem
+            else:
+                self.nowItem.next = travelItem
+                self.nowItem.save()
+                self.nowItem = travelItem
+            self.save()
+            return True
+        else:
+            return False
+
+    def close(self):
+        self.endItem = self.nowItem
+        self.finish = True
+        self.save()
+
     class Meta:
         verbose_name = 'Travel'
         verbose_name_plural = 'Travels'
