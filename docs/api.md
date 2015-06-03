@@ -37,8 +37,8 @@
 
 | 功能 | 接口URL | 接口类型 | 必选项 | 可选项 | 响应类型 | 响应内容 |
 |:---:|:------:|:-------:|:-----:|:-----:|:-----:|:-----:|
-|开始旅行|/travel/start/|HTTP/POST|userID(int)||HTTP/JSON|result(boolean)<br>message(string)<br>travelID|
-|结束旅行|/travel/end/|HTTP/POST|userID(int)||HTTP/JSON|result(boolean)<br>message(string)|
+|开始旅行|/travel/start/|HTTP/POST|||HTTP/JSON|result(boolean)<br>message(string)<br>travelID|
+|结束旅行|/travel/end/|HTTP/POST|||HTTP/JSON|result(boolean)<br>message(string)|
 |旅行详情|/travel/detail/|HTTP/GET|||HTTP/HTML|travel.html<br>travelItems(Array[TravelItem])<br>...|
 
 ---------------
