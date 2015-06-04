@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}注册{% endblock %}
+
+{% block import %}
+{% load staticfiles %}
+<link rel="stylesheet" type='text/css' href="{% static 'css/login.css' %}" />
+{% endblock %}
+
+{% block main %}
+<form action="{% url 'account:register' %}" method="post">
+{% csrf_token %}
+<input type="text" name="username" placeholder="username">
+<input type="password" name="password1" placeholder="password">
+<input type="password" name="password2" placeholder="confirm password">
+<input type="email" name="email" placeholder="email">
+{{error}}
+<button>Submit</button>
+</form>
+{% endblock %}
