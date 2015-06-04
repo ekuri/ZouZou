@@ -1,15 +1,16 @@
 from django.db import models
 from django.db.models.signals import post_save, pre_delete
 from django.contrib.auth.models import User
+from travel.models import TravelItem
 
 # Create your models here.
 
 class RelationManager(models.Manager):
     def getAllFans(self, user):
-        return self.filter(fans = user)
+        return self.filter(fans=user)
 
     def getAllFollow(self, user):
-        return self.filter(follow = user)
+        return self.filter(follow=user)
 
 class Relation(models.Model):
     fans = models.ForeignKey(User, related_name='fans')
@@ -18,7 +19,15 @@ class Relation(models.Model):
     objects = RelationManager()
 
     class Meta:
-        ordering = ['time']
+        ordering = ['fans', 'time']
+
+class Collection(models.Model):
+    travelItem = models.ForeignKey(TravelItem)
+    user = models.ForeignKey(User)
+    time = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['user', 'time']
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, primary_key=True)

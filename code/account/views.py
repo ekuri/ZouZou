@@ -9,11 +9,13 @@ from django.contrib.auth.decorators import login_required
 
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from account.models import UserProfile, Relation
+from account.models import UserProfile, Relation, Collection
+from travel.models import TravelItem
 
 import json
 
 # Create your views here.
+
 @require_http_methods(['GET', 'POST'])
 def login(request, templateName):
     if request.user.is_authenticated():
@@ -30,7 +32,7 @@ def login(request, templateName):
             auth.login(request, user)
             return redirect(nextPage)
         errorMessage = '用户名或密码错误'
-    return render(templateName, {
+    return render(request, templateName, {
         'error': errorMessage,
         'next': nextPage,
         })
@@ -48,14 +50,15 @@ def register(request, templateName):
     if request.method == 'POST':
         userForm = UserCreationForm(request.POST)
         username = request.POST.get('username', None)
-        password = request.POSt.get('password', None)
+        password = request.POST.get('password1', None)
         if userForm.is_valid():
-            user = userForm.save()
+            userForm.save()
+            user = auth.authenticate(username=username, password=password)
             auth.login(request, user)
-            return redirect(next)
+            return redirect(nextPage)
         else:
-            errorMessage = '注册信息有错'
-    return render(templateName, {
+            errorMessage = '用户名已被使用'
+    return render(request, templateName, {
         'error': errorMessage,
         })
 
@@ -68,15 +71,32 @@ def add_follow(request):
     userID = request.POST.get('userID', None)
     user = User.objects.get(id=userID)
     if user is not None:
-        relation = Relation.objects.create(
-            fans = request.user,
-            follow = user,
-            )
+        relation = Relation.objects.create(fans=request.user, follow=user)
         message = 'success'
         result = True
     else:
         message = 'The userID is not exist'
     
+    return HttpResponse(json.dumps({
+        'result': result,
+        'message': message,
+        }))
+
+@require_POST
+@login_required
+def add_collection(request):
+    result = False
+    message = ''
+
+    travelItemID = request.POST.get('travelItemID', None)
+    travelItem = TravelItem.objects.get(id=travelItemID)
+    if travelItem is not None:
+        collection = Collection.objects.create(user=request.user, travelItem=travelIte)
+        message = 'success'
+        result = True
+    else:
+        message = 'The travelItemID is not exist'
+
     return HttpResponse(json.dumps({
         'result': result,
         'message': message,
