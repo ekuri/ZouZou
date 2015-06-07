@@ -6,6 +6,12 @@ import hashlib, json
 
 @csrf_exempt
 def accessInterface(request):
+    if request.method == 'GET':
+        return validateAccessible(request)
+    elif request.method == 'POST':
+        return receiveInformation(request)
+
+def validateAccessible(request):
     echostr = request.GET.get('echostr', '')
     timestamp = request.GET.get('timestamp', '')
     nonce = request.GET.get('nonce', '')
@@ -24,3 +30,8 @@ def checkSignature(signature, token, timestamp, nonce):
         return True
     else:
         return False
+
+def receiveInformation(request):
+    print request.body
+    print request.POST
+    print request.GET
