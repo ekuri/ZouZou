@@ -6,6 +6,6 @@ urlpatterns = [
     url(r'^account/', include('account.urls', namespace='account')),
     # url(r'^comment/', include('comment.urls', namespace='comment')),
     url(r'^travel/', include('travel.urls', namespace='travel')),
-    # url(r'^weixin/', include('weixin.urls', namespace='weixin')),
+    url(r'^weixin/', include('weixin.urls', namespace='weixin')),
     url(r'^admin/', include(admin.site.urls)),
 ]
