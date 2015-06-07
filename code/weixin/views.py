@@ -1,6 +1,10 @@
+from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
+
 import urllib, urllib2
 import hashlib, json
 
+@csrf_exempt
 def accessInterface(request):
     echostr = request.GET.get('echostr', '')
     timestamp = request.GET.get('timestamp', '')
