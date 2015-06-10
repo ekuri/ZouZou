@@ -1,0 +1,18 @@
+/*“评论”页和“收藏”页的右边栏部分*/
+#right-info-bar {
+  /*border: 1px solid black;*/
+  width: 20%;
+  position: absolute;
+  right: 0;
+  top: 50px;
+  margin-top: 20px;
+}
+#right-info-bar .head {
+  text-align: center;
+}
+#right-info-bar span {
+  font-size: 14pt;
+  font-weight: bold;
+  margin: 0 5px 0 5px;
+}
+/*======*/

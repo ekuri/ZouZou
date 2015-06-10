@@ -1,0 +1,25 @@
+/*“收藏”页主要部分*/
+#favorite {
+  /*border: 1px solid black;*/
+  width: 50%;
+  position: absolute;
+  right: 20%;
+  top: 50px;
+  margin-top: 20px;
+  margin-left: calc(3% / 4);
+  margin-right: calc(3% / 2);
+}
+#favorite p {
+  padding-top: 2%;
+}
+#favorite .post-tag-location {
+  margin-top: -5%;
+}
+#favorite .post-tag-time {
+  margin-top: -5%;
+}
+/*======*/
+
+.my-favorite {
+  background-color: #ededef;
+}

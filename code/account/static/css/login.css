@@ -1,0 +1,107 @@
+body {
+    #background-color: #ededef;
+    background-color: black;
+    font-family: "Hiragino Sans GB","Microsoft YaHei","微软雅黑",tahoma,arial,simsun,"宋体";
+    #overflow: scroll;
+}
+
+.main {
+    position: relative;
+    margin: 100px 0 0 0;
+    width: 100%;
+    height: 100%;
+}
+
+.btns {
+    height: 36px;
+    background-color: #16a085; 
+}
+
+/*-------------------------------------------signIn----------------------------------------*/
+.signIn {
+  #border: 1px black solid;
+}
+
+.signIn > div {
+  #height: 600px;
+}
+
+.signIn-top {
+  width: 100%;
+  height: 100px;
+}
+
+.signIn-top > span {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  font-size: 40px;
+  font-family: 'Oxygen',sans-serif;
+  color: #00caff;
+}
+
+.signIn-picture {
+  width: 72%;
+  height: 600px;
+  float: left;
+  #border: 1px black solid;
+}
+
+.signIn-picture > img {
+  width: 100%;
+  height: 480px;
+}
+
+.signIn-main {
+  width: 28%;
+  float: left;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
+}
+
+.signIn-main > ul > li {
+  width: 50%;
+  background-color: rgba(47,47,47,0.98);
+}
+
+.signIn-main > ul > li > a {
+  text-align:center;
+  border-radius: 0;
+  margin: 0;
+}
+
+.login-form {
+  background-color: white;
+  padding: 24px 23px 20px;
+  border-radius: 0;
+}
+
+.login-text {
+  height: 55px;
+  padding: 5px;
+}
+
+.signUp-form {
+  padding: 24px 23px 20px;
+  background-color: white;
+}
+
+.inputs{
+  display: block;
+  margin-left: auto;
+  margin-right: auto; 
+}
+
+.remember {
+  height: 40px;
+  padding: 5px;
+  font-size: 14px;
+}
+
+.submit-button {
+  width: 100%;
+}
+
+.error-message {
+  color: #d9534f;
+}

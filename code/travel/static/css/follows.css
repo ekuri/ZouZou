@@ -1,0 +1,165 @@
+/*!
+ * Bootstrap v3.2.0 (http://getbootstrap.com)
+ * Copyright 2011-2014 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ *//*! normalize.css v3.0.1 | MIT License | git.io/normalize */
+ body{
+  background-color:#ededef; 
+ }
+ .main{
+  background-color:#ededef; 
+  margin-top: 50px;
+ }
+.shenmegui{
+    width:100%;
+    height: 100px;
+  background-color:#ededef; 
+}
+ 
+ .left_container{
+    float:left;
+    width: 250px;
+    height: 500px;
+    border-right:2px dotted #cccccc;
+    margin-left: 150px;
+  background-color:#ededef; 
+ }
+
+ .personal_information{
+      width: 100%;
+      border-bottom: 1px solid #cccccc;
+      height:200px;
+ }
+
+.user_head{
+    float: left;
+    margin-top: -50px;
+}
+
+ .name{
+    margin-left: 160px;
+    margin-top: 50px;
+    font-size: 1.5em;
+ }
+
+ .sign{
+    width: 100%;
+    margin-top: 50px;
+    border-bottom: 1px solid #cccccc;
+ }
+
+.other_information{
+    float: left;
+    width: 25px;
+    font-size: 0.5em;
+    margin-left: 28px;
+    margin-top: 15px;
+}
+
+ .change{
+    height: 210px;
+    border-bottom: 1px solid #cccccc;
+ }
+
+ .change_page{
+    width: 100%;
+    margin-top: 40px;
+ }
+
+.change_page > img{
+    margin-left: 70px;
+ }
+ .change_page > a{
+    margin-left: 20px;
+ }
+
+
+
+
+
+ .right_container{
+    width: 1000px;
+    margin-left: 150px;
+  float: left;
+  margin-top: 50px;
+  background-color: white;
+ }
+
+
+.friend_message{
+   width:100%;
+   border-bottom:1px solid #cccccc;
+   margin-top: 20px;
+}
+
+.friend_information{
+   margin-left: 30px;
+   float: left;
+   
+}
+
+.friend_information > a{
+   margin-left: 20px;
+}
+
+.friend_title{
+  margin-top: 30px;
+  margin-left: 250px;
+  padding-top: 20px;
+}
+.friend_time{
+
+}
+
+.friend_time > span{
+  position: relative;
+  left: 33%;
+  color: #999;
+  text-align: center;
+}
+
+.friend_mood{
+    width: 100%;
+    margin-top: 50px;
+  margin-bottom: 30px;
+}
+.mood_message{
+  width: 300px;
+  float: left;
+  margin-left: 23px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
+}
+.mood_messagel{
+  width: 300px;
+  margin-left: 670px;
+  border: 1px solid white;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
+}
+.mood_picture{
+  margin-left: 25px;
+  margin-top: 20px;
+  margin-bottom: 15px;
+}
+.mood_artical{
+  text-align: center;
+  margin-bottom: 25px;
+  width:100%;
+}
+.friend_location{
+  margin-left: 20px;
+  margin-bottom: 20px;
+  float: left;
+  margin-top: 20px;
+}
+
+.friend_location > a{
+  margin-left: 5px;
+  font-size: 0.5em;
+}
+
+.friend_comment{
+   margin-left: 175px;
+   margin-top: 27px;
+  margin-bottom: 20px;
+  font-size: 0.3em;
+}

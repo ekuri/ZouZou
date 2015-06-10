@@ -34,6 +34,7 @@ def login(request, templateName):
         errorMessage = '用户名或密码错误'
     return render(request, templateName, {
         'error': errorMessage,
+        'currentPage': 'login-form',
         'next': nextPage,
         })
 
@@ -57,9 +58,10 @@ def register(request, templateName):
             auth.login(request, user)
             return redirect(nextPage)
         else:
-            errorMessage = '用户名已被使用'
+            errorMessage = '用户名已被使用或两次密码不一样'
     return render(request, templateName, {
         'error': errorMessage,
+        'currentPage': 'signUp-form',
         })
 
 @require_POST

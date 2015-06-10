@@ -1,0 +1,211 @@
+{% extends "base.html" %}
+
+{% block title %}旅游详情{% endblock %}
+
+{% block import %}
+{% load staticfiles %}
+<link rel="stylesheet" type='text/css' href="{% static 'css/travelDetail.css' %}" />
+{% endblock %}
+
+
+{% block nav %}
+<div class="container">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="/">ZouZou</a>
+    </div>
+    <div id="navbar" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+            <li><a href="#">首页</a></li>
+            <li class="active"><a href="#">我的走走</a></li>
+            <li><a href="#">随便看看</a></li>
+            <li><a href="#">好友</a></li>
+        </ul>
+        <form class="navbar-form form-search navbar-left">  
+            <div class="input-append">  
+                <input type="text" class="form-control white">  
+                <button type="submit" class="btn">搜索</button>  
+            </div>
+        </form>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">设置</a></li>
+            <li><a href="#">注销</a></li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
+
+{% block main %}
+<div class="container content">
+    <div class="contentTop">
+        <div class="recordTime">
+            <span>2015.4.27 - 2015.5.4</span>
+        </div>
+        <button type="button" onclick="buildForTag('mapContainer')" class="btn btn-default btn-route">查看路线</button>
+    </div>
+    <ul class="timeline">
+        <li class="timeline-left" style="z-index:100">
+            <div class="timeline-badge primary"><a><i class="glyphicon glyphicon-record"></i></a></div>
+            <div class="timeline-time"><p class="timeline-time-date">5/1</p><p class="timeline-time-mins">15:30</p></div>
+            <div class="timeline-line"></div>
+            <div class="left-panel timeline-panel">
+                <div class="panel-content">
+                    <div class="timeline-heading">
+                        <img class="img-responsive" src="img/1.jpg" />
+                    </div>
+                    <div class="timeline-body">
+                        <p>Happiness depends not only on food and clothing, but also clear water and blue sky.</p>
+                    </div>
+                    <div class="timeline-footer">
+                        <span class="timeline-footer-like">赞：11</span>
+                        <span class="timeline-footer-comment">评论：3</span>
+                    </div>
+                </div>
+                <div class="timeline-comment">
+                    <div>
+                        <div class="timeline-comment-add" contenteditable="true"></div>
+                        <button class="timeline-comment-publish btn">发布</button>
+                    </div>
+                    <ul>
+                        <li>
+                            <div>
+                                <div class="timeline-comment-head"><img src="img/1.jpg"></div>
+                                <div class="timeline-comment-content">
+                                    <div class="timeline-comment-content-1"><a href="">Aron</a>: aaa</div>
+                                    <div class="timeline-comment-content-2"><a href="">回复</a></div>
+                                </div>
+                            </div>
+                        </li>
+                    <li>
+                        <div>
+                            <div class="timeline-comment-head"><img src="img/psb.jpg"></div>
+                            <div class="timeline-comment-content">
+                                <div class="timeline-comment-content-1"><a href="">Betty</a>: bbb</div>
+                                <div class="timeline-comment-content-2"><a href="">回复</a></div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <div class="timeline-comment-head"><img src="img/www.jpg"></div>
+                            <div class="timeline-comment-content">
+                                <div class="timeline-comment-content-1"><a href="">Carona</a>: ccc</div>
+                                <div class="timeline-comment-content-2"><a href="">回复</a></div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="timeline-comment-page">page：<a href="">1</a> <a href="">2</a>   <a href="">3</a> <a href="">...</a></div>
+                </div>
+            </div>
+        </li>
+        
+        <li  class="timeline-inverted" style="z-index:99">
+            <div class="timeline-badge primary"><a><i class="glyphicon glyphicon-record invert"></i></a></div>
+            <div class="timeline-time"><p class="timeline-time-date">4/30</p><p class="timeline-time-mins">16:30</p></div>
+            <div class="timeline-line"></div>
+
+            <div class="right-panel timeline-panel">
+                <div class="panel-content">
+                    <div class="timeline-heading">
+                        <img class="img-responsive" src="img/4.jpg" />
+                    </div>
+                    <div class="timeline-body">
+                        <p>骑行纳帕海一路看到有烧烤野营放风筝踢足球的，还有艺术家！跑上去搭讪居然还是老乡！西安美院的！会画画的人简直太酷了！</p>
+                    </div>
+            
+                    <div class="timeline-footer">
+                        <span class="timeline-footer-like">赞：11</span>
+                        <span class="timeline-footer-comment">评论：3</span>
+                    </div>
+                </div>
+                <div class="timeline-comment">
+                    <div>
+                        <div class="timeline-comment-add" contenteditable="true"></div>
+                        <button class="timeline-comment-publish btn">发布</button>
+                    </div>
+                    <ul>
+                        <li>
+                            <div>
+                                <div class="timeline-comment-head"><img src="img/1.jpg"></div>
+                                <div class="timeline-comment-content">
+                                    <div class="timeline-comment-content-1"><a href="">Aron</a>: aaa</div>
+                                    <div class="timeline-comment-content-2"><a href="">回复</a></div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <div class="timeline-comment-head"><img src="img/psb.jpg"></div>
+                                <div class="timeline-comment-content">
+                                    <div class="timeline-comment-content-1"><a href="">Betty</a>: bbb</div>
+                                    <div class="timeline-comment-content-2"><a href="">回复</a></div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <div class="timeline-comment-head"><img src="img/www.jpg"></div>
+                                <div class="timeline-comment-content">
+                                    <div class="timeline-comment-content-1"><a href="">Carona</a>: ccc</div>
+                                    <div class="timeline-comment-content-2"><a href="">回复</a></div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="timeline-comment-page">page：<a href="">1</a> <a href="">2</a>   <a href="">3</a> <a href="">...</a></div>
+                </div>
+            </div>
+        </li>
+
+        <li class="timeline-left" style="z-index:100">
+            <div class="timeline-badge primary"><a><i class="glyphicon glyphicon-record"></i></a></div>
+            <div class="timeline-time"><p class="timeline-time-date">4/29</p><p class="timeline-time-mins">10:00</p></div>
+            <div class="timeline-line"></div>
+            <div class="left-panel timeline-panel">
+                <div class="panel-content">
+                    <div class="timeline-heading">
+                        <img class="img-responsive" src="img/3.jpg" />
+                    </div>
+                    <div class="timeline-body">
+                        <p>风马藏地，以歌取暖。</p>
+                    </div>
+                    <div class="timeline-footer">
+                        <span class="timeline-footer-like">赞：11</span>
+                        <span class="timeline-footer-comment">评论：3</span>
+                    </div>
+                </div>
+                <div class="timeline-comment">
+                    <div>
+                        <div class="timeline-comment-add" contenteditable="true"></div>
+                        <button class="timeline-comment-publish btn">发布</button>
+                    </div>
+                    <ul>
+                        <li>
+                            <div>
+                                <div class="timeline-comment-head"><img src="img/1.jpg"></div>
+                                <div class="timeline-comment-content">
+                                    <div class="timeline-comment-content-1"><a href="">Aron</a>: aaa</div>
+                                    <div class="timeline-comment-content-2"><a href="">回复</a></div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="timeline-comment-page">page：<a href="">1</a> <a href="">2</a> <a href="">3</a> <a href="">...</a></div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<div class="route-map">
+    <div class="route-map-content" id="mapContainer"></div>
+    <div class="route-map-return"><button class="btn btn-default hide-map">返回</button></div>
+</div>
+{% endblock %}
+
+{% block script %}
+{% load staticfiles %}
+<script src="{% static 'js/travelDetail.js' %}"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=jy5LGRjfenc42kskts4xzRDT"></script>
+<script src="{% static 'js/map.js' %}"></script>
+{% endblock %}

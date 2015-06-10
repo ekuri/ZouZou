@@ -41,7 +41,6 @@ INSTALLED_APPS = (
     'base',
     'comment',
     'travel',
-    'weixin',
 )
 
 MIDDLEWARE_CLASSES = (

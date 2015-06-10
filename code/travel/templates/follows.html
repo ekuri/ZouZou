@@ -1,0 +1,209 @@
+{% extends "base.html" %}
+
+{% block title %}我的关注{% endblock %}
+
+{% block import %}
+{% load staticfiles %}
+<link rel="stylesheet" type='text/css' href="{% static 'css/follows.css' %}" />
+{% endblock %}
+
+
+{% block nav %}
+<div class="container">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="/">ZouZou</a>
+    </div>
+    <div id="navbar" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+            <li><a href="#">首页</a></li>
+            <li><a href="#">我的走走</a></li>
+            <li><a href="#">随便看看</a></li>
+            <li class="active"><a href="#">好友</a></li>
+        </ul>
+        <form class="navbar-form form-search navbar-left">  
+            <div class="input-append">  
+                <input type="text" class="form-control white">  
+                <button type="submit" class="btn">搜索</button>  
+            </div>
+        </form>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">设置</a></li>
+            <li><a href="#">注销</a></li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
+
+{% block main %}
+<div class="container-fluid main">
+      
+    <div class="right_container">
+
+
+      <div class="friend_message">
+        <div class="friend_information">
+          <img src="img/user/wq.png" width=70px height=70px>
+          <a href="#">WQ</a>
+        </div>
+        <div class="friend_title">
+          最新动态
+        </div>
+        
+        <div class="friend_mood">
+          <div class="mood_message">
+            <div class="mood_picture">
+              <img src="img/5.jpg" width=250px height=180px>
+            </div>
+
+            <div class="mood_artical">
+              <span>分享图片</span>
+              <p></p>
+            </div>
+            
+            <div class="friend_time">
+                <span>2015-05-01</span>
+            </div>
+
+            <div class="friend_location">
+               <a href="#">大理三月好风光酒店</a>
+            </div>
+
+            <div class="friend_comment">
+                <span>评论（<a href="#">10</a>）赞（<a href="#">30</a>）</span>
+            </div>
+          </div>
+
+
+          <div class="mood_message">
+            <div class="mood_picture">
+              <img src="img/6.jpg" width=250px height=180px>
+            </div>
+
+            <div class="mood_artical">
+              <span>分享图片</span>
+            </div>
+
+            <div class="friend_time">
+                <span>2015-05-01</span>
+            </div>
+
+            <div class="friend_location">
+               <a href="#">大理三月好风光酒店</a>
+            </div>
+
+            <div class="friend_comment">
+                <span>评论（<a href="#">10</a>）赞（<a href="#">30</a>）</span>
+            </div>
+          </div>
+
+          <div class="mood_messagel">
+            <div class="mood_picture">
+              <img src="img/4.jpg" width=250px height=180px>
+            </div>
+
+            <div class="mood_artical">
+              <span>分享图片</span>
+            </div>
+
+            <div class="friend_time">
+                <span>2015-05-01</span>
+            </div>
+
+            <div class="friend_location">
+               <a href="#">大理三月好风光酒店</a>
+            </div>
+
+            <div class="friend_comment">
+                <span>评论（<a href="#">10</a>）赞（<a href="#">30</a>）</span>
+            </div>
+          </div>
+        </div>
+        
+        
+      </div>
+
+
+
+      <div class="friend_message">
+        <div class="friend_information">
+          <img src="img/user/wh.jpg" width=70px height=70px>
+          <a href="#">WH</a>
+        </div>
+        <div class="friend_title">
+          最新动态
+        </div>
+        
+        
+        <div class="friend_mood">
+          <div class="mood_message">
+            <div class="mood_picture">
+              <img src="img/1.jpg" width=250px height=180px>
+            </div>
+
+            <div class="mood_artical">
+              <span>分享图片</span>
+              <p></p>
+            </div>
+            
+            <div class="friend_time">
+                <span>2015-05-01</span>
+            </div>
+
+            <div class="friend_location">
+               <a href="#">青藏高原</a>
+            </div>
+
+            <div class="friend_comment">
+                <span>评论（<a href="#">10</a>）赞（<a href="#">30</a>）</span>
+            </div>
+          </div>
+
+
+          <div class="mood_message">
+            <div class="mood_picture">
+              <img src="img/2.jpg" width=250px height=180px>
+            </div>
+
+            <div class="mood_artical">
+              <span>分享图片</span>
+            </div>
+
+            <div class="friend_time">
+                <span>2015-05-01</span>
+            </div>
+
+            <div class="friend_location">
+               <a href="#">青藏高原</a>
+            </div>
+
+            <div class="friend_comment">
+                <span>评论（<a href="#">10</a>）赞（<a href="#">30</a>）</span>
+            </div>
+          </div>
+
+          <div class="mood_messagel">
+            <div class="mood_picture">
+              <img src="img/3.jpg" width=250px height=180px>
+            </div>
+
+            <div class="mood_artical">
+              <span>分享图片</span>
+            </div>
+
+            <div class="friend_time">
+                <span>2015-05-01</span>
+            </div>
+
+            <div class="friend_location">
+               <a href="#">青藏高原</a>
+            </div>
+
+            <div class="friend_comment">
+                <span>评论（<a href="#">10</a>）赞（<a href="#">30</a>）</span>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
