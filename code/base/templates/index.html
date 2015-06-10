@@ -14,10 +14,10 @@
 {% endblock %}
 
 {% block navDetail %}
-<li class="active"><a href="#">首页</a></li>
-<li><a href="#">我的走走</a></li>
-<li><a href="#">随便看看</a></li>
-<li><a href="#">好友</a></li>
+<li class="active"><a href="{% url 'base:index' %}">首页</a></li>
+<li><a href="{% url 'travel:travels' %}">我的走走</a></li>
+<li><a href="{% url 'base:index' %}">随便看看</a></li>
+<li><a href="{% url 'travel:follows' %}">好友</a></li>
 {% endblock %}
 
 {% block main %}
@@ -28,7 +28,7 @@
         <div class="col-md-7"> 
             <div class="mapPanal">
                 <div class="map" id="allmap"></div>
-                <div class="map-info"><span>走过：<a href="">1</a> 大洲 &nbsp;&nbsp;<a href="">3</a> 国家 &nbsp;&nbsp;<a href="">21</a> 城市</span></div>
+                <div class="map-info"><span>走过：<a href="#">1</a> 大洲 &nbsp;&nbsp;<a href="#">3</a> 国家 &nbsp;&nbsp;<a href="#">21</a> 城市</span></div>
             </div>
         </div>
 

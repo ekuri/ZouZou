@@ -8,6 +8,7 @@ from django.views.decorators.http import require_http_methods, require_GET, requ
 from django.contrib.auth.decorators import login_required
 
 from travel.models import Travel, TravelItem
+from account.models import Relation, Collection
 
 import json
 
@@ -50,10 +51,36 @@ def end_travel(request):
     }))
 
 @require_GET
+@login_required
+def get_travels(request, templateName):
+    travels = Travel.objects.filter(user=request.user)
+    return render(request, templateName, {
+        'travels': travels,
+    })
+
+@require_GET
 def get_travel_detail(request, travelID, templateName):
     travel = Travel.objects.get(id=travelID)
-    travelItems = TravelItems.objects.filter(travel=travel)
-    return render(templateName, {
+    travelItems = TravelItem.objects.filter(travel=travel)
+    return render(request, templateName, {
         'travel': travel,
         'travelItems': travelItems,
+    })
+
+@login_required
+@require_GET
+def get_follows_travels(request, templateName):
+    fans = Relation.objects.getAllFollow(request.user)
+    for item in fans:
+        item.travels = Travel.objects.filter(user=item)
+    return render(request, templateName, {
+        'fans': fans,
+    })
+
+@login_required
+@require_GET
+def get_travel_collections(request, templateName):
+    collections = Collection.objects.filter(user=request.user)
+    return render(request, templateName, {
+        'collections': collections,
     })

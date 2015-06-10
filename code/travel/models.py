@@ -53,6 +53,7 @@ class TravelItem(models.Model):
     longtitude = models.FloatField()
     latitude = models.FloatField()
     city = models.CharField(max_length=32, null=True, blank=True)
+    country = models.CharField(max_length=32, null=True, blank=True)
     favour = models.IntegerField(default=0)
     next = models.ForeignKey('self', null=True, blank=True)
     time = models.DateTimeField(auto_now_add=True)
