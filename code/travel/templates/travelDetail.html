@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block title %}旅游详情{% endblock %}
+
+{% block import %}
+{% load staticfiles %}
+<link rel="stylesheet" type='text/css' href="{% static 'css/travelDetail.css' %}" />
+{% endblock %}
+
+
+{% block navDetail %}
+<li><a href="{% url 'base:index' %}">首页</a></li>
+<li class="active"><a href="{% url 'travel:travels' %}">我的走走</a></li>
+<li><a href="{% url 'travel:collections' %}">我的收藏</a></li>
+<li><a href="{% url 'travel:follows' %}">好友</a></li>
+{% endblock %}
+
+{% block main %}
+<div class="container content">
+    <div class="contentTop">
+        <div class="recordTime">
+            <span>{{ travel.startDate|date:'Y-m-d' }} —— {{ travel.endDate|date:'Y-m-d' }}</span>
+        </div>
+        <button type="button" onclick="buildForTag('mapContainer')" class="btn btn-default btn-route" data-id="{{ travel.id }}">查看路线</button>
+    </div>
+    <ul class="timeline">
+    {% for item in travel.items %}
+        {% if forloop.counter0|divisibleby:'2' %}
+        <li class="timeline-left" style="z-index:100">
+        {% else %}
+        <li  class="timeline-inverted" style="z-index:99">
+        {% endif %}
+            <div class="timeline-badge primary">
+                <a>
+                {% if forloop.counter0|divisibleby:'2' %}
+                    <i class="glyphicon glyphicon-record"></i>
+                {% else %}
+                    <i class="glyphicon glyphicon-record invert"></i>
+                {% endif %}
+                </a>
+            </div>
+            <div class="timeline-time"><p class="timeline-time-date">{{ item.time|date:'Y-m-d' }}</p><p class="timeline-time-mins">{{ item.time|date:'H:i' }}</p></div>
+            <div class="timeline-line"></div>
+            {% if forloop.counter0|divisibleby:'2' %}
+            <div class="left-panel timeline-panel">
+            {% else %}
+            <div class="right-panel timeline-panel">
+            {% endif %}
+                <div class="panel-content">
+                    <div class="timeline-heading">
+                        <img class="img-responsive" src="{{ item.picture.url }}" />
+                    </div>
+                    <div class="timeline-body">
+                        <p>{{ item.content }}</p>
+                    </div>
+                    <div class="timeline-footer">
+                        <span class="timeline-footer-like">赞：{{ item.favour }}</span>
+                        <span class="timeline-footer-comment">评论：{{ item.comments|length }}</span>
+                    </div>
+                </div>
+                <div class="timeline-comment">
+                    <div>
+                        <div class="timeline-comment-add" contenteditable="true"></div>
+                        <button class="timeline-comment-publish btn">发布</button>
+                    </div>
+                    <ul>
+                    {% for comment in item.comments %}
+                        <li>
+                            <div>
+                                <div class="timeline-comment-head"><img src="{% static 'default-avatar-png' %}"></div>
+                                <div class="timeline-comment-content">
+                                    <div class="timeline-comment-content-1"><a href="">{{ item.comment.user.username }}</a>: {{ item.comment.content }}</div>
+                                    <div class="timeline-comment-content-2"><a href="">回复</a></div>
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                    </ul>
+                    <div class="timeline-comment-page">page：<a href="">1</a> <a href="">2</a>   <a href="">3</a> <a href="">...</a></div>
+                </div>
+            </div>
+        </li>
+    {% endfor %}
+    </ul>
+</div>
+
+<div class="route-map">
+    <div class="route-map-content" id="mapContainer"></div>
+    <div class="route-map-return"><button class="btn btn-default hide-map">返回</button></div>
+</div>
+{% endblock %}
+
+{% block script %}
+{% load staticfiles %}
+<script src="{% static 'js/travelDetail.js' %}"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=jy5LGRjfenc42kskts4xzRDT"></script>
+<script src="{% static 'js/map.js' %}"></script>
+{% endblock %}

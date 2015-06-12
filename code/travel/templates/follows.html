@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}我的关注{% endblock %}
+
+{% block import %}
+{% load staticfiles %}
+<link rel="stylesheet" type='text/css' href="{% static 'css/follows.css' %}" />
+{% endblock %}
+
+
+{% block navDetail %}
+<li><a href="{% url 'base:index' %}">首页</a></li>
+<li><a href="{% url 'travel:travels' %}">我的走走</a></li>
+<li><a href="{% url 'travel:collections' %}">我的收藏</a></li>
+<li class="active"><a href="{% url 'travel:follows' %}">好友</a></li>
+{% endblock %}
+
+{% block main %}
+<div class="container-fluid main">
+    <div class="right_container">
+    {% for item in follows %}
+        <div class="friend_message">
+            <div class="friend_information">
+                <img src="{% static 'images/default-avatar.png' %}" width=70px height=70px>
+                <a href="#">{{ item.username }}</a>
+            </div>
+            <div class="friend_title">最新动态</div>
+        
+            <div class="friend_mood">
+            {% for item in item.travels %}
+            {% if forloop.last %}
+                <div class="mood_messagel">
+            {% else %}
+                <div class="mood_message">
+            {% endif %}
+                    <div class="mood_picture">
+                        <img src="img/5.jpg" width=250px height=180px>
+                    </div>
+                    <div class="mood_artical">
+                        <span>分享图片</span>
+                        <p></p>
+                    </div>
+                    <div class="friend_time">
+                        <span>{{ item.time }}</span>
+                    </div>
+                    <div class="friend_location">
+                        <a href="{% url 'travel:travelDetail' item.travel.id %}">..</a>
+                    </div>
+                    <div class="friend_comment">
+                        <span>评论（<a href="#">10</a>）赞（<a href="#">30</a>）</span>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+</div>
+{% endblock %}

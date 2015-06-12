@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+BAIDU_AK = '490456be4e5412ba6cf1259b524b9cfa'
 
 # Application definition
 
@@ -41,7 +42,6 @@ INSTALLED_APPS = (
     'base',
     'comment',
     'travel',
-    'weixin',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -109,7 +109,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
-MEDIA_ROOT = '/media/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/').replace('\\', '/')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/').replace('\\', '/')
 MEDIA_URL = '/media/'
 
 AUTH_PROFILE_MODULE = 'account.UserProfile'

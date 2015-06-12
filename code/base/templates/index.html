@@ -1,1 +1,144 @@
 {% extends "base.html" %}
+
+{% block title %}走走{% endblock %}
+
+{% block import %}
+{% load staticfiles %}
+<link rel="stylesheet" type='text/css' href="{% static 'css/index.css' %}" />
+{% endblock %}
+
+{% block topscript %}
+{% load staticfiles %}
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=jy5LGRjfenc42kskts4xzRDT"></script>
+<script type="text/javascript" src="{% static 'js/mapCreator.js' %}"></script>
+{% endblock %}
+
+{% block navDetail %}
+<li class="active"><a href="{% url 'base:index' %}">首页</a></li>
+<li><a href="{% url 'travel:travels' %}">我的走走</a></li>
+<li><a href="{% url 'travel:collections' %}">我的收藏</a></li>
+<li><a href="{% url 'travel:follows' %}">好友</a></li>
+{% endblock %}
+
+{% block main %}
+<div class="container-fluid main">
+    <div class="row">
+        <div class="col-md-1"></div>
+
+        <div class="col-md-7"> 
+            <div class="mapPanal">
+                <div class="map" id="allmap"></div>
+                <div class="map-info"><span>走过：<a href="#">{{ countCountry }}</a> 国家 &nbsp;&nbsp;<a href="#">{{ countCity }}</a> 城市 &nbsp;&nbsp;<a href="#">{{ travels|length }}</a> 旅行</span></div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="rightPanal">
+                <ul class="nav nav-tabs">
+                    <li id='mine' role="presentation" class="active"><a href="" name="mine" onclick="return change(this.name)">我的消息</a></li>
+                    <li id='travel' role="presentation"><a href="#" name="travel" onclick="return change(this.name)">本次旅行</a></li>
+                    <li id='new' role="presentation"><a href="#" name="new" onclick="return change(this.name)">最新动态</a></li>
+                    <input id="curPage" type="hidden" value="mine" />
+                </ul>
+
+                <div class="mine">
+                    <div class="mine-infos">
+                        <div class="mine-top">
+                            <div class="mine-head"><img src="{% static 'images/default-avatar.png' %}"></div>
+                            <div class="mine-name"><span>{{ user.username }}</span><a href="#">编辑资料</a></div>
+                            <div class="mine-what"><p>只要用心 在哪里都是行走</p></div>
+                        </div>
+                        <div class="mine-bottom">
+                            <div class="mine-records"><span>记录：{{ travels|length }}</span></div>
+                            <div class="mine-following"><span>关注：{{ follows|length }}</span></div>
+                            <div class="mine-fans"><span>粉丝：{{ fans|length }}</span></div>
+                        </div>
+                    </div>
+                    <div class="mine-messages">
+                        <ul>
+                            <li class="mine-comment">
+                                <a href="{% url 'comment:comments' %}">
+                                    <span class="mine-messages-icon"><img src=""></span>
+                                    <span class="mine-messages-txt">评论</span>
+                                    <span class="mine-messages-number">{{ comments|length }}</span>
+                                </a>
+                            </li>
+                            <li class="mine-favorite">
+                                <a href="{% url 'travel:collections' %}">
+                                    <span class="mine-messages-icon"><img src=""></span>
+                                    <span class="mine-messages-txt">收藏</span>
+                                    <span class="mine-messages-number">{{ collections|length }}</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="travel">
+                    <div class="timeline">
+                        <ul class="timeline">
+                        {% for item in traveling.items %}
+                            <li>
+                                <div class="timeline-badge primary"><a><i class="glyphicon glyphicon-record"></i></a></div>
+                                <div class="content">
+                                    <div class="imgDisplay">
+                                        <img src="{{ item.picture.url }}" />
+                                    </div>
+                                    <p>{{ item.content }}</p>
+                                </div>
+                            </li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="new">
+                    <ul>
+                    {% for item in news %}
+                        <li>
+                            <div class="new-head">
+                                <img src="{% static 'images/default-avatar.png' %}">
+                            </div>
+                            <div class="new-name"><span>{{ item.travel.user.username }}</span></div>
+                            <div class="new-content">
+                                <div class="content">
+                                    <div class="imgDisplay">
+                                        <img src="{{ item.picture.url }}" />
+                                    </div>
+                                    <p>{{ item.content }}</p>
+                                </div>
+                            </div>
+                            <div class="new-time"></div>
+                        </li>
+                    {% endfor %}
+                    </ul>
+                    {% if news %}
+                    <div class="new-more"><a href="#">查看更多</a></div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-1"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+    function change(name) {
+        var curPage = $("#curPage").val();
+        if(name === curPage)
+            return false;
+        $('#' + curPage).removeClass("active");
+        $('#' + name).addClass("active");
+        $('#curPage').val(name);
+        $("." + curPage).hide();
+        $("." + name).show();
+        return false;
+    }
+    //$('.mine').hide();
+    $('.new').hide();
+    $('.travel').hide();
+</script>
+{% endblock %}

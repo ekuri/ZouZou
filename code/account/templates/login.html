@@ -5,13 +5,93 @@
 {% block import %}
 {% load staticfiles %}
 <link rel="stylesheet" type='text/css' href="{% static 'css/login.css' %}" />
+<link rel="stylesheet" type='text/css' href="{% static 'css/buttons.css' %}" />
+{% endblock %}
+
+
+{% block nav %}
+<div class="container" >
+    <div class="navbar-header">
+        <a class="navbar-brand" href="{% url 'base:index' %}">ZouZou</a>
+    </div>
+</div>
 {% endblock %}
 
 {% block main %}
-<form action="{% url 'account:login' %}" method="post">
-{% csrf_token %}
-<input type="text" name="username" placeholder="username">
-<input type="password" name="password" placeholder="password">
-<button>Submit</button>
-</form>
+<div class="container-fluid main">
+    <div class="row signIn">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <div class="signIn-top"></div>
+           <!--  <div class="signIn-picture"><img src="{% static 'images/bg1.jpg' %}"></div> -->
+            <div class="signIn-main">
+                <ul class="nav nav-tabs">
+                    <li id='login-form' role="presentation" class="active"><a class="aaa" href="" name="login-form" onclick="return change(this.name)">登陆</a></li>
+                    <li id='signUp-form' role="presentation"><a href="#" name="signUp-form" onclick="return change(this.name)">注册</a></li>
+                    <input id="curPage" type="hidden" value="login-form" />
+                </ul>
+
+                <div class="login-form">
+                    <form name="login-input" action="{% url 'accounts:login' %}" method="post">
+                    {% csrf_token %}
+                        <div class="login-text">
+                            <input type="text" name="username" class="inputs" size="25" placeholder="Username">
+                        </div>
+                        <div class="login-text">
+                            <input type="password" name="password" class="inputs" size="25" placeholder="Password">
+                        </div>
+                        {% ifequal currentPage 'login-form' %}
+                        <p class="error-message">{{error}}</p>
+                        {% endifequal %}
+                        <div>
+                            <button class="submit-button button button-raised button-pill button-inverse">登录</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="signUp-form">
+                    <form name="signUp-input" action="{% url 'accounts:register' %}" method="post">
+                    {% csrf_token %}
+                        <div class="login-text">
+                            <input type="text" name="username" class="inputs" size="25" placeholder="Username">
+                        </div>
+                        <div class="login-text">
+                            <input type="password" name="password1" class="inputs" size="25" placeholder="Password">
+                        </div>
+                         <div class="login-text">
+                            <input type="password" name="password2" class="inputs" size="25" placeholder="Confrim password">
+                        </div>
+                        {% ifequal currentPage 'signUp-form' %}
+                        <p class="error-message">{{error}}</p>
+                        {% endifequal %}
+                        <div>
+                            <button class="submit-button button button-raised button-pill button-inverse">登录</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-1"></div>   
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+    function change(name) {
+        var curPage = $("#curPage").val();
+        if(name === curPage)
+            return false;
+        $('#' + curPage).removeClass("active");
+        $('#' + name).addClass("active");
+        $('#curPage').val(name);
+        $("." + curPage).hide();
+        $("." + name).show();
+        return false;
+    }
+    //$('.login').hide();
+    $('.signUp-form').hide();
+    change('{{ currentPage }}');
+</script>
 {% endblock %}
