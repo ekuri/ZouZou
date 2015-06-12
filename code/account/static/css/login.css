@@ -3,6 +3,11 @@ body {
     background-color: black;
     font-family: "Hiragino Sans GB","Microsoft YaHei","微软雅黑",tahoma,arial,simsun,"宋体";
     #overflow: scroll;
+    background-image: url('../images/bg1.jpg');
+    background-repeat: no-repeat;
+    background-size: 70% 100%;
+    background-attachment: fixed;
+    background-position: 0 40%;
 }
 
 .main {
@@ -55,7 +60,7 @@ body {
 
 .signIn-main {
   width: 28%;
-  float: left;
+  float: right;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
 }
 

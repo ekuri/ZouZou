@@ -159,10 +159,10 @@ body {
 }
 
 .timeline-heading {
-    border:1px solid;
     margin:10px 10px 0px 10px;
 }
 .img-responsive {
+  width: 100%;
 }
 
 .timeline-comment {
@@ -301,8 +301,7 @@ body {
 }
 
 .recordTime {
-  position: relative;
-  left: 31%;
+  text-align: center;
   font-size: 2.5em;
   font-family: times;
   color: #999;

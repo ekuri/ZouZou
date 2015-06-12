@@ -4,170 +4,112 @@
 
 {% block import %}
 {% load staticfiles %}
-<link rel="stylesheet" type='text/css' href="{% static 'css/demo.css' %}" />
 <link rel="stylesheet" type='text/css' href="{% static 'css/posts.css' %}" />
-<link rel="stylesheet" type='text/css' href="{% static 'css/favourite.css' %}" />
+<link rel="stylesheet" type='text/css' href="{% static 'css/collections.css' %}" />
 <link rel="stylesheet" type='text/css' href="{% static 'css/right_side_bar.css' %}" />
 {% endblock %}
 
 
 {% block navDetail %}
-<li class="active"><a href="{% url 'base:index' %}">首页</a></li>
+<li><a href="{% url 'base:index' %}">首页</a></li>
 <li><a href="{% url 'travel:travels' %}">我的走走</a></li>
-<li><a href="{% url 'base:index' %}">随便看看</a></li>
+<li class="active"><a href="{% url 'travel:collections' %}">我的收藏</a></li>
 <li><a href="{% url 'travel:follows' %}">好友</a></li>
 {% endblock %}
 
 {% block main %}
-<div class="row">
-            <div class="col-xs-8 col-xs-offset-1">
-                <!-- favorite-sub-navbar  -->
-                <nav class="navbar navbar-default navbar-embossed my-favorite" role="navigation">
-                    <div class="navbar-header">
-                        <a class="navbar-brand" href="#">我的收藏</a>
-                    </div>
-                    <!-- <span>（共36条）</span> -->
-                    <div class="collapse navbar-collapse" id="navbar-collapse-01">
-                        <form class="navbar-form navbar-right" action="#" role="search">
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <span class="input-group-btn">
-                                        <button type="submit" class="btn">
-                                            <span class="fui-search"></span>
-                                        </button>
-                                    </span>
-                                    <input class="form-control" id="navbarInput-01" type="search" placeholder="搜索" />
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </nav>
-                <!-- favorite-sub-navbar  -->
-            </div>
-        </div>
-        <!-- 搜索栏占据8列，缩进1 -->
-        
-        <div class="row">
-            <!-- 收藏信息占据4列，缩进1 -->
-            <div class="col-xs-4 col-xs-offset-1">
-                <!-- favorite-post-->
-                <div class="panel panel-default posts">
-                    <div class="panel-body">
-                        <img src="img/user/wq.png" class="post-user-image" alt="头像">
-                        <div class="post-user-name">用户名: 王青</div>
-                        <!-- post-tag:location -->
-                        <div class="post-tag-location">
-                            <span class="fui-location"></span>
-                            <a href=""><span>中国</span></a>
-                            <a href=""><span>桂林</span></a>
-                        </div>
-                        <!-- post-tag:time -->
-                        <div class="post-tag post-tag-time">
-                            <span class="fui-time"></span>
-                            <a href=""><span>2015-6-01 10:00</span></a>
-                        </div>
-                        <div style="float: left">
-                            <div>
-                                <img class="img-responsive" src="img/1.jpg" />
-                            </div>
-                            <div>
-                                <p>Happiness depends not only on food and clothing, but also clear water and blue sky.</p>
-                            </div>
-                            <div>
-                                <span>赞：11</span>
-                                <span>评论：3</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel-footer">
-                        <!-- post-further-info-buttons -->
-                        <div class="btn-group btn-group-justified" role="group" aria-label="...">
-                            <div class="btn-group" role="group">
-                                <button type="button" class="btn btn-default">取消收藏</button>
-                            </div>
-                            <div class="btn-group" role="group">
-                                <button type="button" class="btn btn-default">评论</button>
-                            </div>
-                            <div class="btn-group" role="group">
-                                <button type="button" class="btn btn-default">赞</button>
-                            </div>
-                        </div>
-                    </div>
+<div class="container">
+<div style="width: 100%; height: 60px;"></div>
+    <div class="row">
+        <div class="col-xs-8 col-xs-offset-1">
+            <nav class="navbar navbar-default navbar-embossed my-favorite" role="navigation">
+                <div class="navbar-header">
+                    <a class="navbar-brand">我的收藏</a>
                 </div>
-                <!-- favorite-post -->
-            </div>
-            <!-- 收藏信息占据4列，缩进1 -->
-            
-            <!-- 收藏信息占据4列 -->
-            <div class="col-xs-4">
-                <!-- favorite-post-->
-                <div class="panel panel-default posts">
-                    <div class="panel-body">
-                        <img src="img/user/wh.jpg" class="post-user-image" alt="头像">
-                        <div class="post-user-name">用户名: 万海</div>
-                        <!-- post-tag:location -->
-                        <div class="post-tag-location">
-                            <span class="fui-location"></span>
-                            <a href=""><span>中国</span></a>
-                            <a href=""><span>西藏</span></a>
-                        </div>
-                        <!-- post-tag:time -->
-                        <div class="post-tag post-tag-time">
-                            <span class="fui-time"></span>
-                            <a href=""><span>2015-5-01 9:00</span></a>
-                        </div>
-                        <div style="float: left">
-                            <div>
-                                <img class="img-responsive" src="img/2.jpg" />
-                            </div>
-                            <div>
-                                <p>这真是个美丽的地方。微醺，不胜杯酌...</p>
-                            </div>
-                            <div>
-                                <span>赞：9</span>
-                                <span>评论：7</span>
+                <div class="collapse navbar-collapse" id="navbar-collapse-01">
+                    <form class="navbar-form navbar-right" action="#" role="search">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <button type="submit" class="btn">
+                                        <span class="fui-search"></span>
+                                    </button>
+                                </span>
+                                <input class="form-control" id="navbarInput-01" type="search" placeholder="搜索" />
                             </div>
                         </div>
-                    </div>
-                    <div class="panel-footer">
-                        <!-- post-further-info-buttons -->
-                        <div class="btn-group btn-group-justified" role="group" aria-label="...">
-                            <div class="btn-group" role="group">
-                                <button type="button" class="btn btn-default">取消收藏</button>
-                            </div>
-                            <div class="btn-group" role="group">
-                                <button type="button" class="btn btn-default">评论</button>
-                            </div>
-                            <div class="btn-group" role="group">
-                                <button type="button" class="btn btn-default">赞</button>
-                            </div>
-                        </div>
-                    </div>
+                    </form>
                 </div>
-                <!-- favorite-post -->
-            </div>
-            <!-- 收藏信息占据4列 -->
-            
-            <!-- 右侧热门收藏占据3列 -->
-            <div class="col-xs-3">
-                <!-- right-info-bar -->
-                <div>
-                    <div class="share mrl">
-                        <ul>
-                            <li><div class="head"><span>热门收藏</span></div></li>
-                            <li><a href=""><span class="fui-heart"></span>拉萨。。。</a></li>
-                            <li><a href=""><span class="fui-heart"></span>中国那么大，我想去看看</a></li>
-                            <li><a href=""><span class="fui-heart"></span>印象云南。。。</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- right-info-bar -->
-            </div>
-            <!-- 右侧热门收藏占据3列 -->
+            </nav>
         </div>
     </div>
+    <div class="row">
+    {% for item in travelItems %}
+    {% if forloop.first %}
+        <div class="col-xs-4 col-xs-offset-1">
+    {% else %}
+        <div class="col-xs-4">
+    {% endif %}
+            <div class="panel panel-default posts">
+                <div class="panel-body">
+                    <img src="{% static 'images/default-avatar.png' %}" class="post-user-image" alt="头像">
+                    <div class="post-user-name">{{ item.travel.user.username }}</div>
+                    <div class="post-tag-location">
+                        <span class="fui-location"></span>
+                        <a href=""><span>{{ item.country }}</span></a>
+                        <a href=""><span>{{ item.city }}</span></a>
+                    </div>
+                    <div class="post-tag post-tag-time">
+                        <span class="fui-time"></span>
+                        <a href="#"><span>{{ item.time|date:'Y-m-d H:i' }}</span></a>
+                    </div>
+                    <div style="float: left">
+                        <div>
+                            <img class="img-responsive" src="{{ item.picture.url }}" />
+                        </div>
+                        <div>
+                            <p>{{ item.content }}</p>
+                        </div>
+                        <div>
+                            <span>赞：{{ item.favour }}</span>
+                            <span>评论：{{ item.comments }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-default">取消收藏</button>
+                        </div>
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-default">评论</button>
+                        </div>
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-default">赞</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        <div class="col-xs-3">
+            <!-- right-info-bar -->
+            <div>
+                <div class="share mrl">
+                    <ul>
+                        <li><div class="head"><span>热门收藏</span></div></li>
+                        <li><a href=""><span class="fui-heart"></span>拉萨。。。</a></li>
+                        <li><a href=""><span class="fui-heart"></span>中国那么大，我想去看看</a></li>
+                        <li><a href=""><span class="fui-heart"></span>印象云南。。。</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- right-info-bar -->
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 {% block script %}
-<script src="{% static 'js/application.js' %}"></script>
+<script src="{% static 'js/collections.js' %}"></script>
 {% endblock %}

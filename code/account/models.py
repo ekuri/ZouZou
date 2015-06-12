@@ -7,10 +7,12 @@ from travel.models import TravelItem
 
 class RelationManager(models.Manager):
     def getAllFans(self, user):
-        return self.filter(fans=user)
+        fans = self.filter(follow=user).values_list('fans', flat=True)
+        return User.objects.filter(id__in=fans)
 
-    def getAllFollow(self, user):
-        return self.filter(follow=user)
+    def getAllFollows(self, user):
+        follows = self.filter(fans=user).values_list('follow', flat=True)
+        return User.objects.filter(id__in=follows)
 
 class Relation(models.Model):
     fans = models.ForeignKey(User, related_name='fans')

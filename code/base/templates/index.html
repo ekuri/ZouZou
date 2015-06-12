@@ -16,7 +16,7 @@
 {% block navDetail %}
 <li class="active"><a href="{% url 'base:index' %}">首页</a></li>
 <li><a href="{% url 'travel:travels' %}">我的走走</a></li>
-<li><a href="{% url 'base:index' %}">随便看看</a></li>
+<li><a href="{% url 'travel:collections' %}">我的收藏</a></li>
 <li><a href="{% url 'travel:follows' %}">好友</a></li>
 {% endblock %}
 
@@ -28,7 +28,7 @@
         <div class="col-md-7"> 
             <div class="mapPanal">
                 <div class="map" id="allmap"></div>
-                <div class="map-info"><span>走过：<a href="#">1</a> 大洲 &nbsp;&nbsp;<a href="#">3</a> 国家 &nbsp;&nbsp;<a href="#">21</a> 城市</span></div>
+                <div class="map-info"><span>走过：<a href="#">{{ countCountry }}</a> 国家 &nbsp;&nbsp;<a href="#">{{ countCity }}</a> 城市 &nbsp;&nbsp;<a href="#">{{ travels|length }}</a> 旅行</span></div>
             </div>
         </div>
 
@@ -44,51 +44,30 @@
                 <div class="mine">
                     <div class="mine-infos">
                         <div class="mine-top">
-                            <div class="mine-head"><img src="{% static 'images/head.jpg' %}"></div>
-                            <div class="mine-name"><span>Zouzou</span><a href="#">编辑资料</a></div>
+                            <div class="mine-head"><img src="{% static 'images/default-avatar.png' %}"></div>
+                            <div class="mine-name"><span>{{ user.username }}</span><a href="#">编辑资料</a></div>
                             <div class="mine-what"><p>只要用心 在哪里都是行走</p></div>
                         </div>
                         <div class="mine-bottom">
-                            <div class="mine-records"><span>记录：22</span></div>
-                            <div class="mine-following"><span>关注：15</span></div>
-                            <div class="mine-fans"><span>粉丝：99</span></div>
+                            <div class="mine-records"><span>记录：{{ travels|length }}</span></div>
+                            <div class="mine-following"><span>关注：{{ follows|length }}</span></div>
+                            <div class="mine-fans"><span>粉丝：{{ fans|length }}</span></div>
                         </div>
                     </div>
                     <div class="mine-messages">
                         <ul>
                             <li class="mine-comment">
-                                <a href="#">
+                                <a href="{% url 'comment:comments' %}">
                                     <span class="mine-messages-icon"><img src=""></span>
                                     <span class="mine-messages-txt">评论</span>
-                                    <span class="mine-messages-number">2</span>
+                                    <span class="mine-messages-number">{{ comments|length }}</span>
                                 </a>
                             </li>
                             <li class="mine-favorite">
-                                <a href="#">
+                                <a href="{% url 'travel:collections' %}">
                                     <span class="mine-messages-icon"><img src=""></span>
                                     <span class="mine-messages-txt">收藏</span>
-                                    <span class="mine-messages-number">33</span>
-                                </a>
-                            </li>
-                            <li class="mine-like">
-                                <a href="#">
-                                    <span class="mine-messages-icon"><img src=""></span>
-                                    <span class="mine-messages-txt">喜欢</span>
-                                    <span class="mine-messages-number">19</span>
-                                </a>
-                            </li>
-                            <li class="mine-letter">
-                                <a href="#">
-                                    <span class="mine-messages-icon"><img src=""></span>
-                                    <span class="mine-messages-txt">私信</span>
-                                    <span class="mine-messages-number">1</span>
-                                </a>
-                            </li>
-                            <li class="mine-notice">
-                                <a href="#">
-                                    <span class="mine-messages-icon"><img src=""></span>
-                                    <span class="mine-messages-txt">通知</span>
-                                    <span class="mine-messages-number"></span>
+                                    <span class="mine-messages-number">{{ collections|length }}</span>
                                 </a>
                             </li>
                         </ul>
@@ -96,92 +75,46 @@
                 </div>
 
                 <div class="travel">
-                    <div class="publish">
-                        <textarea rows="3" cols="22"></textarea>
-                        <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
-                        <span class="glyphicon glyphicon-picture" aria-hidden="true"></span>
-                        <span class="glyphicon glyphicon-music" aria-hidden="true"></span>
-                        <span class="glyphicon glyphicon-facetime-video" aria-hidden="true"></span>
-                        <button class="btn btn-default pull-right btns">发布</button>
-                    </div>
-
                     <div class="timeline">
                         <ul class="timeline">
+                        {% for item in traveling.items %}
                             <li>
                                 <div class="timeline-badge primary"><a><i class="glyphicon glyphicon-record"></i></a></div>
                                 <div class="content">
                                     <div class="imgDisplay">
-                                        <img src="{% static 'images/1.jpg' %}" />
+                                        <img src="{{ item.picture.url }}" />
                                     </div>
-                                    <p>Happiness depends not only on food and clothing, but also clear water and blue sky.</p>
+                                    <p>{{ item.content }}</p>
                                 </div>
                             </li>
-                            <li>
-                                <div class="timeline-badge primary"><a><i class="glyphicon glyphicon-record"></i></a></div>
-                                <div class="content">
-                                    <div class="imgDisplay">
-                                        <img src="{% static 'images/2.jpg' %}" />
-                                    </div>
-                                    <p>骑行纳帕海一路看到有烧烤野营放风筝踢足球的，还有艺术家！跑上去搭讪居然还是老乡！西安美院的！会画画的人简直太酷了！</p>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="timeline-badge primary"><a><i class="glyphicon glyphicon-record"></i></a></div>
-                                <div class="content">
-                                    <div class="imgDisplay">
-                                        <img src="{% static 'images/3.jpg' %}" />
-                                    </div>
-                                    <p>风马藏地，以歌取暖。</p>
-                                </div>
-                            </li>
+                        {% endfor %}
                         </ul>
                     </div>
-
-                    <!-- <button class="btn btn-default btns" id="end">结束旅行</button> -->
-                    <button class="btn btn-link" id="more">查看更多</button>
                 </div>
 
                 <div class="new">
                     <ul>
+                    {% for item in news %}
                         <li>
-                            <div class="new-head"><img src="{% static 'images/psb.jpg' %}"></div>
-                            <div class="new-name"><span>艾斯比</span></div>
+                            <div class="new-head">
+                                <img src="{% static 'images/default-avatar.png' %}">
+                            </div>
+                            <div class="new-name"><span>{{ item.travel.user.username }}</span></div>
                             <div class="new-content">
                                 <div class="content">
                                     <div class="imgDisplay">
-                                        <img src="{% static 'images/2.jpg' %}" />
+                                        <img src="{{ item.picture.url }}" />
                                     </div>
-                                    <p>骑行纳帕海一路看到有烧烤野营放风筝踢足球的，还有艺术家！跑上去搭讪居然还是老乡！西安美院的！会画画的人简直太酷了！</p>
+                                    <p>{{ item.content }}</p>
                                 </div>
                             </div>
                             <div class="new-time"></div>
                         </li>
-                        <li>
-                            <div class="new-head"><img src="{% static 'images/psb.jpg' %}"></div>
-                                <div class="new-name"><span>艾斯比</span></div>
-                                    <div class="new-content">
-                                    <div class="content">
-                                    <div class="imgDisplay">
-                                        <img src="{% static 'images/2.jpg' %}" />
-                                    </div>
-                                    <p>骑行纳帕海一路看到有烧烤野营放风筝踢足球的，还有艺术家！跑上去搭讪居然还是老乡！西安美院的！会画画的人简直太酷了！</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="new-head"><img src="{% static 'images/psb.jpg' %}"></div>
-                                <div class="new-name"><span>艾斯比</span></div>
-                                <div class="new-content">
-                                    <div class="content">
-                                    <div class="imgDisplay">
-                                        <img src="{% static 'images/2.jpg' %}" />
-                                    </div>
-                                    <p>骑行纳帕海一路看到有烧烤野营放风筝踢足球的，还有艺术家！跑上去搭讪居然还是老乡！西安美院的！会画画的人简直太酷了！</p>
-                                </div>
-                            </div>
-                        </li>
+                    {% endfor %}
                     </ul>
+                    {% if news %}
                     <div class="new-more"><a href="#">查看更多</a></div>
+                    {% endif %}
                 </div>
             </div>
         </div>

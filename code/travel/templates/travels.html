@@ -11,7 +11,7 @@
 {% block navDetail %}
 <li><a href="{% url 'base:index' %}">首页</a></li>
 <li class="active"><a href="{% url 'travel:travels' %}">我的走走</a></li>
-<li><a href="{% url 'base:index' %}">随便看看</a></li>
+<li><a href="{% url 'travel:collections' %}">我的收藏</a></li>
 <li><a href="{% url 'travel:follows' %}">好友</a></li>
 {% endblock %}
 
@@ -19,10 +19,11 @@
 <div class="container content">
     <div class="timeline">
         <ul class="timeline">
+        {% for travel in travels %}
             <li class="row">
                 <div class="col-md-1">
-                    <div class="begin">2015-5-4</div>
-                    <div class="end">2015-4-27</div>
+                    <div class="begin">{{ travel.startDate|date:'Y-m-d' }}</div>
+                    <div class="end">{{ travel.endDate|date:'Y-m-d' }}</div>
                     <div class="line-time"></div>
                 </div>
                 <div class="col-md-1" style=''>
@@ -30,61 +31,21 @@
                 </div>
                 <div class="col-md-10 row content">
                     <div style="overflow:hidden;zoom:1">
+                        {% for item in travel.items %}
                         <div class="imgDisplay col-md-4">
-                            <img src="img/1.jpg" />
-                            <p>Happiness depends not only on food and clothing, but also clear water and blue sky.</p>
-                            <p class="thisTime">5月1日 15:30</p>
+                            <img src="{{ item.picture.url }}" />
+                            <p>{{ item.content|slice:'8' }}...</p>
+                            <p class="thisTime">{{ item.time|date:'Y-m-d f' }}</p>
                         </div>
-                        <div class="imgDisplay col-md-4">
-                            <img src="img/2.jpg" />
-                            <p>骑行纳帕海一路看到有烧烤野营放风筝踢足球的，还有艺术家！跑上去搭讪居然还是老乡！西安美院的！会画画的人简直太酷了！</p>
-                            <p class="thisTime">4月30日 10:00</p>
-                        </div>
-                        <div class="imgDisplay col-md-4">
-                            <img src="img/3.jpg" />
-                            <p>风马藏地，以歌取暖。</p>
-                            <p class="thisTime">4月29日 16:10</p>
-                        </div>
+                        {% endfor %}
                         <div class="col-md-12">
-                            <p style="position:absolute"><strong>15记录</strong></p>
-                            <p style="text-align:center"><a>查看详情</a></p>
+                            <p style="position:absolute"><strong>{{ travel.items|length }}个记录({% if travel.finish %}已结束{% else %}未结束{% endif %})</strong></p>
+                            <p style="text-align:center"><a href="{% url 'travel:travelDetail' travel.id %}">查看详情</a></p>
                         </div>
                     </div>
                 </div>
             </li>
-            <li class="row">
-                <div class="col-md-1">
-                    <div class="begin">2015-5-4</div>
-                    <div class="end">2015-4-27</div>
-                    <div class="line-time"></div>
-                </div>
-                <div class="col-md-1" style=''>
-                    <div class="timeline-badge"><a><i class="glyphicon glyphicon-record"></i></a></div> 
-                </div>
-                <div class="col-md-10 row content">
-                    <div style="overflow:hidden;zoom:1">
-                        <div class="imgDisplay col-md-4">
-                            <img src="img/1.jpg" />
-                            <p>Happiness depends not only on food and clothing, but also clear water and blue sky.</p>
-                            <p class="thisTime">5月1日 15:30</p>
-                        </div>
-                        <div class="imgDisplay col-md-4">
-                            <img src="img/2.jpg" />
-                            <p>骑行纳帕海一路看到有烧烤野营放风筝踢足球的，还有艺术家！跑上去搭讪居然还是老乡！西安美院的！会画画的人简直太酷了！</p>
-                            <p class="thisTime">4月30日 10:00</p>
-                        </div>
-                        <div class="imgDisplay col-md-4">
-                            <img src="img/3.jpg" />
-                            <p>风马藏地，以歌取暖。</p>
-                            <p class="thisTime">4月29日 16:10</p>
-                        </div>
-                        <div class="col-md-12">
-                            <p style="position:absolute"><strong>15记录</strong></p>
-                            <p style="text-align:center"><a>查看详情</a></p>
-                        </div>
-                    </div>
-                </div>
-            </li>
+        {% endfor %}
         </ul>
     </div>
 </div>
