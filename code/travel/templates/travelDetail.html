@@ -21,7 +21,7 @@
         <div class="recordTime">
             <span>{{ travel.startDate|date:'Y-m-d' }} —— {{ travel.endDate|date:'Y-m-d' }}</span>
         </div>
-        <button type="button" onclick="buildForTag('mapContainer')" class="btn btn-default btn-route" data-id="{{ travel.id }}">查看路线</button>
+        <button type="button" onclick="buildForTag('mapContainer', {{ travel.id }})" class="btn btn-default btn-route" data-id="{{ travel.id }}">查看路线</button>
     </div>
     <ul class="timeline">
     {% for item in travel.items %}

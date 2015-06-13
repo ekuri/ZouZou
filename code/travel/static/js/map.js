@@ -27,17 +27,15 @@ var newRoutePoints = new Array();
 // route marker for new added route
 var newRouteMarkers = new Array();
 
+// current travel id
+var curentTravelID
 
 /******************** build map ********************/
 var isMapBuilt = false;
-function buildForTag(targetTag) {
+function buildForTag(targetTag, travelID) {
     if (isMapBuilt)
         return;
-    loadMap(targetTag);
-    setDemoData();
-    getAllTravelDataFromServer();
-    setMapInformation();
-    //registerAllItemEventListener();
+    getAllTravelDataFromServer(targetTag, travelID);
 };
 
 /******************** main fuction to build a map ********************/
@@ -52,13 +50,42 @@ function loadMap(targetTag) {
 }
 
 // get user travel data from server
-function getAllTravelDataFromServer() {
-    console.log("get data finished.");
+function getAllTravelDataFromServer(targetTag, travelID) {
+    var xmlhttp;
+    if (window.XMLHttpRequest)
+      {// code for IE7+, Firefox, Chrome, Opera, Safari
+      xmlhttp=new XMLHttpRequest();
+      }
+    else
+      {// code for IE6, IE5
+      xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+      }
+    xmlhttp.onreadystatechange=function()
+      {
+      if (xmlhttp.readyState==4 && xmlhttp.status==200)
+        {
+            var mapSetfocus = false;
+            jsonArray = eval(xmlhttp.responseText)
+            console.log("get data finished.");
+            addLocalDataFromJsonArray(jsonArray);
+            loadMap(targetTag);
+            setMapInformation();
+            map.addEventListener("tilesloaded", function() {
+                if (mapSetfocus)
+                    return;
+                console.log("map load finished.");
+                map.centerAndZoom(allTravelRoutes[0][0], 15);
+                mapSetfocus = true;
+            });
+        }
+      }
+    xmlhttp.open("GET","/travel/path/" + travelID, true);
+    xmlhttp.send();
 }
 
 // set travel route and marker, some event listener will also be registered
 function setMapInformation() {
-    getBoundarys(provinces);
+    //getBoundarys(provinces);
     setAllRoutes();
     console.log("set information finished.");
 }
@@ -102,10 +129,15 @@ function getBoundary(provincePara){
 
 /******************** get and set information windows ********************/
 
-function getInfoWindowContent(title, src, discription) {
+function getInfoWindowContent(title, src, discription, time) {
+    timeLocal = time.slice(0, time.indexOf("+"));
     var sContent =
+        "<div class='post-tag post-tag-time'>" +
+                               " <span class='fui-time'></span>" +
+                                "<a href='#''><span>" + timeLocal +"</span></a>" +
+        "</div>" +
         "<h4 style='margin:0 0 5px 0;padding:0.2em 0'>" + title + "</h4>" + 
-        "<img style='float:right;margin:4px' id='imgDemo' src='img/" + src + "' width='128' height='128' title='" + title + "'/>" + 
+        "<img style='float:right;margin:4px' id='imgDemo' src='/media/" + src + "' width='128' height='128' title='" + title + "'/>" + 
         "<p style='margin:0;line-height:1.5;font-size:16px;text-indent:2em;'>" + discription + "</p>" + 
         "</div>";
     return sContent;
@@ -156,7 +188,7 @@ function setAllRoutes() {
 }
 
 function createMapInfoWindow(infoParam) {
-    return new BMap.InfoWindow(getInfoWindowContent(infoParam.title, infoParam.src, infoParam.discription));
+    return new BMap.InfoWindow(getInfoWindowContent(infoParam.title, infoParam.src, infoParam.discription, infoParam.time));
 }
 
 /******************** create new Route ********************/
@@ -193,49 +225,18 @@ function addMapEventListeners() {
 }
 
 /******************** html event ********************/
-
-function imageSelected(imagePath) {
-    //var imageLocal = document.getElementById("newSelectedImage");
-    //imageLocal.src = imagePath;
+function addLocalDataFromJsonArray(jsonArray) {
+    var pointArrayLocal = new Array();
+    var infoArrayLocal = new Array();
+    for (var i = 0; i < jsonArray.length; i++) {
+        addLocalDataFromSimgleJsonObj(jsonArray[i], pointArrayLocal, infoArrayLocal);
+    }
+    allTravelRoutes.push(pointArrayLocal);
+    allTravelInfos.push(infoArrayLocal);
 }
 
-var mapSetfocus = false;
-function setDemoData() {
-    provinces = ["西藏"];
-    var lasaRoute = [
-        new BMap.Point(91.124901, 29.661225),
-        new BMap.Point(91.127452, 29.662543),
-        new BMap.Point(91.128225, 29.660942),
-        new BMap.Point(91.125619, 29.656313),
-        new BMap.Point(91.12084, 29.657145),
-        new BMap.Point(91.121469, 29.658275),
-        new BMap.Point(91.117876, 29.658981),
-        new BMap.Point(91.119349, 29.65206),
-        new BMap.Point(91.117301, 29.649298),
-        ];
-    var lasaRouteInfo = [
-        {title: "布达拉宫",  src: "布达拉宫.jpg",  discription: "旅行第一站！！！看到了美丽而雄伟的布达拉宫，在蓝天白云的映衬下格外辉煌，而且很是壮观。"},
-        {title: "宗角禄康公园",  src: "宗角禄康公园.jpg",  discription: "宗角禄康公园在布达拉宫后，水清林幽，古柳蟠生、碧波清澈，是拉萨著名的园林"},
-        {title: "圣地康桑",  src: "圣地康桑.jpg",  discription: "看到了美丽而雄伟的布达拉宫，在蓝天白云的映衬下格外辉煌，而且很是壮观。"},
-        {title: "和平解放纪念碑",  src: "和平解放纪念碑.jpg",  discription: "好高好高好高好高好高好高好高好高好高好高好高好高好高好高好高好高好高好高!!!!"},
-        {title: "鲁普岩寺",  src: "鲁普岩寺.jpg",  discription: "这一天，我没有给自己的西藏行列出具体的行程安排，美美地睡了一个自然醒，便下楼来到宾馆餐厅，喝了足足两大碗酥油茶后，心满心足地抹去了嘴唇上那层薄薄的酥油，迎着9月依然耀眼的阳光，走上了鲁普岩寺"},
-        {title: "药王山观景台",  src: "药王山观景台.jpg",  discription: "旅行第一站！！！看到了美丽而雄伟的布达拉宫，在蓝天白云的映衬下格外辉煌，而且很是壮观。"},
-        {title: "药王山",  src: "药王山.jpg",  discription: "药王山上是拍摄布达拉宫较好的角度，尤其是半山腰。有密密麻麻的摄影师和摄影发烧友汇集在药王山上等待第一缕光线照亮布达拉宫的瞬间。"},
-        {title: "雪林多吉颇章",  src: "雪林多吉颇章.jpg",  discription: "听说是是班禅额尔德尼在拉萨市的行宫，过来看看!!!"},
-        {title: "阳光花园",  src: "阳光花园.jpg",  discription: "看到了美丽而雄伟的布达拉宫，在蓝天白云的映衬下格外辉煌，而且很是壮观。"},
-        ];
-    allTravelRoutes.push(lasaRoute);
-    allTravelInfos.push(lasaRouteInfo);
-    // map.centerAndZoom(lasaRoute[0], 15);
-    // tilesloaded
-    map.addEventListener("tilesloaded", function() {
-        if (mapSetfocus)
-            return;
-        console.log("map load finished.");
-        map.centerAndZoom(allTravelRoutes[0][0], 15);
-        mapSetfocus = true;
-    })
-    console.log("Demo data set");
+function addLocalDataFromSimgleJsonObj(jsonObj, pointArray, infoArray) {
+    pointArray.push(new BMap.Point(jsonObj.longtitude, jsonObj.latitude));
+    var routeInfoLocal = {title: "",  src: jsonObj.picture,  discription: jsonObj.content, time: jsonObj.time};
+    infoArray.push(routeInfoLocal);
 }
-
-
