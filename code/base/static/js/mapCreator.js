@@ -292,10 +292,14 @@ newRouteControl.prototype.initialize = function(map){
     newRouteStartBtn.style.margin = "4px";
     newRouteStartBtn.onclick = function() {
         isNewRouteCreatable = true;
+        if (!isNewRouteCreatable)
+        	return;
+        startNewTravel();
     }
     
     newRouteEndBtn.onclick = function() {
         isNewRouteCreatable = false;
+        endCurrentTravel();
     }
     
     div.appendChild(newRouteEndBtn);
@@ -343,3 +347,43 @@ function addLocalDataFromSimgleJsonObj(jsonObj, pointArray, infoArray) {
     infoArray.push(routeInfoLocal);
 }
 
+// send start/end request for a travel
+
+function startNewTravel() {
+   var xmlhttp;
+    if (window.XMLHttpRequest)
+      {// code for IE7+, Firefox, Chrome, Opera, Safari
+      xmlhttp=new XMLHttpRequest();
+      }
+    else
+      {// code for IE6, IE5
+      xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+      }
+    xmlhttp.onreadystatechange=function()
+      {
+      if (xmlhttp.readyState==4 && xmlhttp.status==200)
+        {
+        }
+      }
+    xmlhttp.open("POST","/travel/new/", true);
+    xmlhttp.send();
+}
+function endCurrentTravel() {
+  var xmlhttp;
+    if (window.XMLHttpRequest)
+      {// code for IE7+, Firefox, Chrome, Opera, Safari
+      xmlhttp=new XMLHttpRequest();
+      }
+    else
+      {// code for IE6, IE5
+      xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+      }
+    xmlhttp.onreadystatechange=function()
+      {
+      if (xmlhttp.readyState==4 && xmlhttp.status==200)
+        {
+        }
+      }
+    xmlhttp.open("POST","/travel/end/", true);
+    xmlhttp.send();
+}
