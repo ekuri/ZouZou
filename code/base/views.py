@@ -14,8 +14,11 @@ def index(request, templateName):
     fans = Relation.objects.getAllFans(request.user)
     follows = Relation.objects.getAllFollows(request.user)
     travels = Travel.objects.filter(user=request.user, finish=True)
-    traveling = Travel.objects.get(finish=False)
-    traveling.items = TravelItem.objects.filter(travel=traveling)
+    try:
+        traveling = Travel.objects.get(user=request.user, finish=False)
+        traveling.items = TravelItem.objects.filter(travel=traveling).order_by('-time')
+    except:
+        traveling = None
     count = Travel.objects.getCount(request.user)
     collections = Collection.objects.filter(user=request.user)
     comments = Comment.objects.filter(user=request.user)

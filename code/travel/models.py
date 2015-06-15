@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 from zouzou.settings import BAIDU_AK
+
 import urllib2
 import json
 
@@ -70,7 +71,7 @@ class TravelItem(models.Model):
     country = models.CharField(max_length=32, null=True, blank=True)
     favour = models.IntegerField(default=0)
     next = models.ForeignKey('self', null=True, blank=True)
-    time = models.DateTimeField(auto_now_add=True)
+    time = models.DateTimeField()
 
     def __unicode__(self):
         return 'Item of ' + self.travel.user.username + '\'s travel'

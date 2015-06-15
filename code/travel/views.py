@@ -11,7 +11,11 @@ from travel.models import Travel, TravelItem
 from account.models import Relation, Collection
 from comment.models import Comment
 
+from travel.forms import TravelItemForm
+
+import datetime
 import json
+
 
 # Create your views here.
 
@@ -125,3 +129,34 @@ def get_all_travel_path(request):
 def mapper(item):
     item['time'] = str(item['time'])
     return item
+
+
+@login_required
+@require_POST
+def upload_travel_item(request):
+    result = False
+    message = ''
+    try:
+        travel = Travel.objects.get(user=request.user, finish=False)
+    except:
+        travel = None
+        message = 'There is no travel unfinish'
+    if travel:
+        form = TravelItemForm(request.POST, request.FILES)
+        if form.is_valid():
+            content = form.cleaned_data['content']
+            longtitude = float(form.cleaned_data['longtitude'])
+            latitude = float(form.cleaned_data['latitude'])
+            picture = form.cleaned_data['picture']
+            time = str(form.cleaned_data['date']) + ' ' + str(form.cleaned_data['time'])
+            TravelItem.objects.create(content=content, latitude=latitude,
+                longtitude=longtitude, travel=travel, picture=picture,
+                time=datetime.datetime.strptime(time, '%Y-%m-%d %H:%M:%S'))
+            result = True
+            message = 'Succeed'
+        else:
+            print form.errors
+    return HttpResponse(json.dumps({
+        'result': result,
+        'message': message,
+    }))
