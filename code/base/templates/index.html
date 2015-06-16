@@ -134,7 +134,7 @@
         <div class="col-md-12">  
             <h6>信息添加</h4>
         </div>
-        <form action="{% url 'travel:upload' %}" method="post" enctype="multipart/form-data" target="upload-iframe" class="upload-form"  style="width:600px;">
+        <form action="{% url 'travel:upload' %}" method="post" enctype="multipart/form-data" target="upload-iframe" class="upload-form"  style="min-width:600px;">
         {% csrf_token %}
             <div class="col-md-8 form-group">
                 <input type="date" name="date" class="form-control">
