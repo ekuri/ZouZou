@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.template import RequestContext, loader
 
 from django.contrib import auth
 from django.views.decorators.csrf import csrf_exempt
@@ -21,11 +22,14 @@ import json
 
 @require_POST
 @login_required
+@csrf_exempt
 def start_travel(request):
     result = False
     message = ''
-
-    travel = Travel.objects.get(user=request.user, finish=False)
+    try:
+        travel = Travel.objects.get(user=request.user, finish=False)
+    except:
+        travel = None
     if travel is None:
         travel = Travel.objects.create(user=request.user)
         result = True
@@ -39,13 +43,21 @@ def start_travel(request):
 
 @require_POST
 @login_required
+@csrf_exempt
 def end_travel(request):
     result = False
     message = ''
-
-    travel = Travel.objects.get(user=request.user, finish=False)
+    try:
+        travel = Travel.objects.get(user=request.user, finish=False)
+    except:
+        travel = None
     if travel is not None:
-        travel.close()
+        items = TravelItem.objects.filter(travel=travel)
+        if len(items) == 0:
+            travel.delete()
+        else:
+            travel.finish = True
+            travel.save()
         result = True
         message = 'End travel succeed!'
     else:
@@ -136,11 +148,13 @@ def mapper(item):
 def upload_travel_item(request):
     result = False
     message = ''
+    picture = None
+    content = None
     try:
         travel = Travel.objects.get(user=request.user, finish=False)
     except:
         travel = None
-        message = 'There is no travel unfinish'
+        message = '尚未开始任何旅行'
     if travel:
         form = TravelItemForm(request.POST, request.FILES)
         if form.is_valid():
@@ -149,14 +163,18 @@ def upload_travel_item(request):
             latitude = float(form.cleaned_data['latitude'])
             picture = form.cleaned_data['picture']
             time = str(form.cleaned_data['date']) + ' ' + str(form.cleaned_data['time'])
-            TravelItem.objects.create(content=content, latitude=latitude,
+            travelItem = TravelItem.objects.create(content=content, latitude=latitude,
                 longtitude=longtitude, travel=travel, picture=picture,
                 time=datetime.datetime.strptime(time, '%Y-%m-%d %H:%M:%S'))
+            picture = travelItem.picture.url
+            content = travelItem.content
             result = True
             message = 'Succeed'
         else:
-            print form.errors
+            message = '提交表单的信息不全'
     return HttpResponse(json.dumps({
         'result': result,
         'message': message,
+        'picture': picture,
+        'content': content,
     }))

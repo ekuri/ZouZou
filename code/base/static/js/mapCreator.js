@@ -27,7 +27,7 @@ var newRoutePoints = new Array();
 // route marker for new added route
 var newRouteMarkers = new Array();
 // 是否可以添加新路线
-var isNewRouteCreatable = false;
+var isNewRouteCreatable = true;
 
 
 /******************** build map ********************/
