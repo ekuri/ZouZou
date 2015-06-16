@@ -129,11 +129,12 @@
         <div class="col-md-1"></div>
     </div>
     <iframe name="upload-iframe" id="upload-iframe" style="width: 0px; height: 0px; border: none;"></iframe>
+
     <div id="add-travel-item" class="row">
         <div class="col-md-12">  
             <h6>信息添加</h4>
         </div>
-        <form action="{% url 'travel:upload' %}" method="post" enctype="multipart/form-data" target="upload-iframe" class="upload-form">
+        <form action="{% url 'travel:upload' %}" method="post" enctype="multipart/form-data" target="upload-iframe" class="upload-form"  style="width:600px;">
         {% csrf_token %}
             <div class="col-md-8 form-group">
                 <input type="date" name="date" class="form-control">
@@ -142,10 +143,10 @@
                 <input type="time" name="time" class="form-control">
             </div>
             <div class="col-md-6 form-group">
-                经度：<input type="number" name="longtitude" class="form-control">
+                经度：<input type="number" name="longtitude" class="form-control" id="longtitudeInput">
             </div>
             <div class="col-md-6 form-group">
-                纬度：<input type="number" name="latitude" class="form-control">
+                纬度：<input type="number" name="latitude" class="form-control" id="latitudeInput">
             </div>
             <div class="col-md-12 form-group">
                 <textarea name="content" rows="3" cols="40" class="form-control" placeholder="说点什么吧～"></textarea>

@@ -202,9 +202,13 @@ function addMapEventListeners() {
         var tempInfoWindow = new BMap.InfoWindow(getInfoWindowChangerContent());
         newRouteInfoWindows.push(tempInfoWindow);
         marker.infomationWindow = tempInfoWindow;
-        marker.addEventListener("click", function() {
-            this.openInfoWindow(this.infomationWindow);
-        });
+        marker.addEventListener("click", function(markerPosition) {
+            return function() {
+            	this.openInfoWindow(tempInfoWindow);
+            	$('#longtitudeInput').val(this.point.lng);
+            	$('#latitudeInput').val(this.point.lat);
+            }
+        }(d.point));
         marker.addEventListener("dragend", function(indexOfTarget) {
             return function(positionPara) {
                 newRoutePoints[indexOfTarget] = positionPara.point;
@@ -305,10 +309,10 @@ newRouteControl.prototype.initialize = function(map){
 function setControls() {
     // 创建控件
     var zoomControlLocal = new ZoomControl();
-    var newRouteControlLocal = new newRouteControl();
+    //var newRouteControlLocal = new newRouteControl();
     // 添加到地图当中
     map.addControl(zoomControlLocal);
-    map.addControl(newRouteControlLocal);
+    //map.addControl(newRouteControlLocal);
     console.log("control set.");
 }
 
