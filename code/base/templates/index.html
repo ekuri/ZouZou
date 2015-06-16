@@ -75,9 +75,16 @@
                 </div>
 
                 <div class="travel">
+                    <div class="new-travel row">
+                        <div class="col-md-6">
+                            <button id="new-travel-button" class="btn btn-primary">开始新旅行</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button id="close-travel-button" class="btn btn-danger">结束旅行</button>
+                        </div>
+                    </div>
                 {% if traveling %}
                     <div class="timeline">
-                        <button id="close-travel-button" class="btn btn-primary">结束旅行</button>
                         <ul class="timeline">
                         {% for item in traveling.items %}
                             <li>
@@ -91,10 +98,6 @@
                             </li>
                         {% endfor %}
                         </ul>
-                    </div>
-                {% else %}
-                    <div class="new-travel">
-                        <button id="new-travel-button" class="btn btn-primary">开始新旅行</button>
                     </div>
                 {% endif %}
                 </div>
@@ -143,10 +146,10 @@
                 <input type="time" name="time" class="form-control">
             </div>
             <div class="col-md-6 form-group">
-                经度：<input type="number" name="longtitude" class="form-control" id="longtitudeInput">
+                经度：<input type="text" name="longtitude" class="form-control" id="longtitudeInput">
             </div>
             <div class="col-md-6 form-group">
-                纬度：<input type="number" name="latitude" class="form-control" id="latitudeInput">
+                纬度：<input type="text" name="latitude" class="form-control" id="latitudeInput">
             </div>
             <div class="col-md-12 form-group">
                 <textarea name="content" rows="3" cols="40" class="form-control" placeholder="说点什么吧～"></textarea>
@@ -154,7 +157,7 @@
             <div class="col-md-6 form-group">
                 <input name='picture' type='file' accept='.jpg,.png,.jpeg' class="form-control">
             </div>
-            <button class='btn btn-primary'>确定</button>
+            <button class="btn btn-primary">确定</button>
         </form>
     </div>
 </div>

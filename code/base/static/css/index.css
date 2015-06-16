@@ -393,10 +393,13 @@ div.content > div {
 
 #new-travel-button,
 #close-travel-button {
-  margin: 20px 30%;
-  width: 40%;
+  width: 100%;
 }
 
 .new-travel {
   width: 100%;
+}
+
+.travel .row {
+  margin: 10px 0;
 }
