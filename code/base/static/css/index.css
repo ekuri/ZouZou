@@ -386,3 +386,17 @@ div.content > div {
 .new-more > a {
   font-size: 15px;
 }
+
+#add-travel-item {
+  display: none;
+}
+
+#new-travel-button,
+#close-travel-button {
+  margin: 20px 30%;
+  width: 40%;
+}
+
+.new-travel {
+  width: 100%;
+}

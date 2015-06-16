@@ -143,18 +143,7 @@ function getInfoWindowContent(title, src, discription, time) {
     return sContent;
 }
 function getInfoWindowChangerContent() {
-    var sContent = 
-        "<p style='margin:0 0 5px 0;padding:0.2em 0'>" + "信息添加" + "</p>" + 
-        "<form method='post' enctype='multipart/form-data' target='hidenIframe' action='/travel/new/newTravelPoint'>" +
-        "<iframe name='hidenIframe' style='width: 0px; height: 0px; border: none;'>" + "</iframe>" + 
-        "<input type='date' name='date'>" + "</input>"+
-        "<input type='time' name='time'>" + "</input>"+
-        "<textarea name='description' style='width: 600px;height: 150px;'>说点什么吧～</textarea>" +
-        "<image id='newSelectedImage'>" + "</image>" +
-        "<input name='image' style='float: right;' type='file' accept='.jpg,.png,.jpeg' onchange='imageSelected(this.value)'></input>" +
-        "<input style='float: left;' type='submit' value='submit'></input>" +
-        "</form>" +
-        "</div>";
+    var sContent = $('#add-travel-item').html();
     return sContent;
 }
 
