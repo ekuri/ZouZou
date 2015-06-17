@@ -12,4 +12,5 @@ urlpatterns = [
     url(r'^start/$', views.start_travel),
     url(r'^end/$', views.end_travel),
     url(r'^upload/$', views.upload_travel_item, name='upload'),
+    url(r'^favour/$', views.add_favour),
 ]

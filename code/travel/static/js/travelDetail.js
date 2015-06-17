@@ -57,4 +57,18 @@ $(function(){
             alert(data['message']);
         }
     });
+
+    $('.add-favour').click(function(event) {
+        var travelItem = $(this).attr('data-id');
+        $.post('/travel/favour/', {
+            'travelItem': travelItem,
+        }, function(data) {
+            if (data['result']) {
+                $('#favour' + travelItem).html(data['count']);
+            } else {
+                alert(data['message']);
+            }
+        }, 'json');
+        return false;
+    });
 });

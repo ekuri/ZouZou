@@ -1,0 +1,13 @@
+/*“评论”页主要部分*/
+/*@media screen and (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+   #comment {
+    padding-top: 120px;
+  } 
+}
+#comment {
+  padding-top: 70px;
+}*/
+.panel-footer {
+  padding: 0;
+}
+/*======*/

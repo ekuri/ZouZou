@@ -154,12 +154,12 @@
 
 .friend_location > a{
   margin-left: 5px;
-  font-size: 0.5em;
+  font-size: 16px;
 }
 
 .friend_comment{
-   margin-left: 175px;
-   margin-top: 27px;
+   margin-left: 160px;
+   margin-top: 20px;
   margin-bottom: 20px;
-  font-size: 0.3em;
+  font-size: 16px;
 }

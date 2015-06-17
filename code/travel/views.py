@@ -106,6 +106,8 @@ def get_follows_travels(request, templateName):
     for item in follows:
         travels = list(Travel.objects.filter(user=item))
         item.travels = TravelItem.objects.filter(travel__in=travels)[:3]
+        for travelItem in item.travels:
+            travelItem.comments = Comment.objects.filter(travelItem=travelItem)
     return render(request, templateName, {
         'follows': follows,
     })
@@ -178,3 +180,32 @@ def upload_travel_item(request):
         'picture': picture,
         'content': content,
     }))
+
+@login_required
+@require_POST
+@csrf_exempt
+def add_favour(request):
+    result = False
+    message = ''
+    travelItem = request.POST.get('travelItem', None)
+    count = None
+    if travelItem:
+        try:
+            travelItem = TravelItem.objects.get(id=travelItem)
+        except:
+            travelItem = None
+        if travelItem:
+            result = True
+            message = '操作成功'
+            travelItem.favour = int(travelItem.favour) + 1
+            travelItem.save()
+            count = travelItem.favour
+        else:
+            message = '不存在相应旅游信息'
+    else:
+        message = '提交表单的信息不全'
+    return HttpResponse(json.dumps({
+        'result': result,
+        'message': message,
+        'count': count,
+        }))
