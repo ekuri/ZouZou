@@ -1,10 +1,15 @@
+# -*- coding: utf-8 -*-
 from django.shortcuts import render
+from django.http import HttpResponse
 
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods, require_GET, require_POST
 from django.contrib.auth.decorators import login_required
 
 from comment.models import Comment
+from travel.models import TravelItem
+
+import json
 
 # Create your views here.
 
@@ -15,3 +20,32 @@ def get_comments(request, templateName):
     return render(request, templateName, {
         'comments': comments,
     })
+
+@login_required
+@require_POST
+def create_comment(request):
+    result = False
+    message = ''
+    content = request.POST.get('content', None)
+    travelItemId = request.POST.get('travelItem', None)
+    if content and travelItemId:
+        try:
+            travelItem = TravelItem.objects.get(id=travelItemId)
+        except:
+            travelItem = None
+        if travelItem:
+            comment = Comment.objects.create(travelItem=travelItem, content=content, user=request.user)
+            result = True
+            message = 'Succeed'
+        else:
+            message = '该旅行信息不存在'
+    else:
+        message = '提交信息有误'
+    return HttpResponse(json.dumps({
+        'result': result,
+        'message': message,
+        'content': content,
+        'travelItem': travelItemId,
+        'username': request.user.username,
+        'image': '/static/images/default-avatar.png',
+        }))

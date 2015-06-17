@@ -40,4 +40,21 @@ $(function(){
     showMap();
     hideMap();
     //fectchData();
+
+    $('#comment-iframe').load(function() {
+        var data = JSON.parse($('#comment-iframe').contents().find('body').html());
+        var travelItemId = data['travelItem'];
+        if (data['result']) {
+            $('#travelItem' + travelItemId).append('<li><div>' +
+                '<div class="timeline-comment-head"><img src="' + data['image'] +
+                '"></div><div class="timeline-comment-content">' + 
+                '<div class="timeline-comment-content-1"><a href="#">' + data['username'] +
+                '</a>: ' + data['content'] + '</div></div></div></li>');
+            var count = $('#count' + travelItemId).html();
+            $('#count' + travelItemId).html(parseInt(count) + 1);
+            $('.content-input').val('');
+        } else {
+            alert(data['message']);
+        }
+    });
 });
