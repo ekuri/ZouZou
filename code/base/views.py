@@ -30,6 +30,8 @@ def index(request, templateName):
         'countCity': count['city'],
         'news': getFollowsNews(request.user),
         'traveling': traveling,
+        'collections': collections,
+        'comments': comments,
     })
 
 def getFollowsNews(user):

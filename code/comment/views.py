@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 from django.views.decorators.csrf import csrf_exempt
@@ -49,3 +49,15 @@ def create_comment(request):
         'username': request.user.username,
         'image': '/static/images/default-avatar.png',
         }))
+
+@login_required
+@require_GET
+def delete_comment(request, id):
+    try:
+        comment = Comment.objects.get(id=id)
+    except:
+        comment = None
+    if comment:
+        if comment.user == request.user:
+            comment.delete()
+    return redirect('/comment/')

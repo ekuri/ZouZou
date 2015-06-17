@@ -17,7 +17,7 @@
 <li class="active"><a href="{% url 'base:index' %}">首页</a></li>
 <li><a href="{% url 'travel:travels' %}">我的走走</a></li>
 <li><a href="{% url 'travel:collections' %}">我的收藏</a></li>
-<li><a href="{% url 'travel:follows' %}">好友</a></li>
+<li><a href="{% url 'travel:follows' %}">我的好友</a></li>
 {% endblock %}
 
 {% block main %}
@@ -26,10 +26,12 @@
         <div class="col-md-1"></div>
 
         <div class="col-md-7"> 
+        {% block index_main %}
             <div class="mapPanal">
                 <div class="map" id="allmap"></div>
                 <div class="map-info"><span>走过：<a href="#">{{ countCountry }}</a> 国家 &nbsp;&nbsp;<a href="#">{{ countCity }}</a> 城市 &nbsp;&nbsp;<a href="#">{{ travels|length }}</a> 旅行</span></div>
             </div>
+        {% endblock %}
         </div>
 
         <div class="col-md-3">
@@ -123,7 +125,7 @@
                     {% endfor %}
                     </ul>
                     {% if news %}
-                    <div class="new-more"><a href="#">查看更多</a></div>
+                    <div class="new-more"><a href="{% url 'travel:follows' %}">查看更多</a></div>
                     {% endif %}
                 </div>
             </div>
@@ -131,6 +133,8 @@
 
         <div class="col-md-1"></div>
     </div>
+
+    {% block upload %}
     <iframe name="upload-iframe" id="upload-iframe" style="width: 0px; height: 0px; border: none;"></iframe>
 
     <div id="add-travel-item" class="row">
@@ -160,6 +164,7 @@
             <button class="btn btn-primary">确定</button>
         </form>
     </div>
+    {% endblock %}
 </div>
 {% endblock %}
 

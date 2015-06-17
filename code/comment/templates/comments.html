@@ -1,0 +1,77 @@
+{% extends "index.html" %}
+
+{% block title %}我的评论{% endblock %}
+
+{% block import %}
+{% load staticfiles %}
+<link rel="stylesheet" type='text/css' href="{% static 'css/index.css' %}" />
+<link rel="stylesheet" type='text/css' href="{% static 'css/comments.css' %}" />
+<link rel="stylesheet" type='text/css' href="{% static 'css/home.css' %}" />
+
+{% endblock %}
+
+{% block navDetail %}
+<li class="active"><a href="{% url 'base:index' %}">首页</a></li>
+<li><a href="{% url 'travel:travels' %}">我的走走</a></li>
+<li><a href="{% url 'travel:collections' %}">我的收藏</a></li>
+<li><a href="{% url 'travel:follows' %}">我的好友</a></li>
+{% endblock %}
+
+{% block index_main %}
+<div class="row">
+    <div class="col-md-12">
+        <nav class="navbar navbar-default navbar-embossed" role="navigation">
+            <div class="collapse navbar-collapse" id="navbar-collapse-01">
+                <ul class="nav navbar-nav navbar-left">
+                    <li><a href="{% url 'comment:comments' %}">发出的评论</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12" id="comment-list">
+    {% for item in comments %}
+        <div class="panel panel-default posts">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-2 col-md-2">
+                        <img src="{% static 'images/default-avatar.png' %}" class="post-user-image img-responsive" alt="头像">
+                    </div>
+                    <div class="col-xs-10 col-md-10">
+                        <div class="row">
+                            <div class="post-user-name">用户名： {{ item.user.username }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="post-content">
+                                <p>内容：{{ item.content }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="post-tag post-tag-time">
+                            <span class="fui-time"></span>
+                            <a><span>{{ item.time|date:'Y-m-d' }} {{ item.time|date:'H:i' }}</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-default" href="{% url 'travel:travelDetail' item.travelItem.travel.id %}">查看详情</a>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-danger" href="{% url 'comment:delete' item.id %}">删除</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block upload %}{% endblock %}

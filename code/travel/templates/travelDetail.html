@@ -54,7 +54,7 @@
                         <p>{{ item.content }}</p>
                     </div>
                     <div class="timeline-footer">
-                        <span class="timeline-footer-like">赞：{{ item.favour }}</span>
+                        <span class="timeline-footer-like"><a href="#" class="add-favour" data-id="{{ item.id }}">赞</a>：<span id="favour{{ item.id }}">{{ item.favour }}</span></span>
                         <span class="timeline-footer-comment">评论：<span  id="count{{ item.id }}">{{ item.comments|length }}</span></span>
                     </div>
                 </div>
